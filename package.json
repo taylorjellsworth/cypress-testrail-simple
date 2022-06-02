@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bahmutov/cypress-testrail-simple.git"
+    "url": "https://github.com/taylorjellsworth/cypress-testrail-simple.git"
   },
   "keywords": [
     "cypress",
@@ -29,12 +29,12 @@
     "reporter",
     "cypress-plugin"
   ],
-  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "author": "Taylor Ellsworth",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bahmutov/cypress-testrail-simple/issues"
+    "url": "https://github.com/taylorjellsworth/cypress-testrail-simple/issues"
   },
-  "homepage": "https://github.com/bahmutov/cypress-testrail-simple#readme",
+  "homepage": "https://github.com/taylorjellsworth/cypress-testrail-simple#readme",
   "devDependencies": {
     "console.table": "^0.10.0",
     "cypress": "9.7.0",

@@ -17,10 +17,11 @@ function findCasesInSpec(spec, readSpec = fs.readFileSync, tagged) {
     testNames = found.testNames
   }
 
+  console.log('findCasesInSpec - Test Names: ', testNames)
   // a single test case ID per test title for now
   const ids = testNames
     .map((testName) => {
-      const matches = testName.match(/\bC(?<caseId>\d+)\b/)
+      const matches = testName.match(/\bC(?<caseId>\d+)\:?\b/)
       if (!matches) {
         return
       }
@@ -33,6 +34,10 @@ function findCasesInSpec(spec, readSpec = fs.readFileSync, tagged) {
 }
 
 function findCases(specs, readSpec = fs.readFileSync, tagged) {
+  console.log('findCases - specs: ', specs)
+  console.log('findCases - readSpec: ', readSpec)
+  console.log('findCases - tagged: ', tagged)
+
   // find case Ids in each spec and flatten into a single array
   const allCaseIds = specs
     .map((spec) => findCasesInSpec(spec, readSpec, tagged))

@@ -70,6 +70,7 @@ async function getTestRunResults(runId, testRailInfo) {
 
     debug('get %d test results for test run %d', json.tests.length, runId)
 
+    console.log('getPartResults - Test Rail Status Codes: ', json)
     const cases = json.tests.map((t) => {
       const status = TestRailStatusName[t.status_id]
       if (!status) {
