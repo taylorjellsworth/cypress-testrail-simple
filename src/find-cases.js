@@ -31,7 +31,7 @@ function findCasesInSpec(spec, readSpec = fs.readFileSync, tagged) {
       }
       return idArray
     })
-    flat().filter((id) => !isNaN(id))
+    .flat().filter((id) => !isNaN(id))
 
   // make sure the test ids are unique
   return Array.from(new Set(ids)).sort()
