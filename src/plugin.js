@@ -116,6 +116,7 @@ async function registerPlugin(on, config, skipPlugin = false) {
       if (testRailCaseReg.test(testName)) {
         const case_id = parseInt(testRailCaseReg.exec(testName)[1])
         const status_id = status[result.state] || defaultStatus.failed
+        console.log('!Case_id array!: ', testRailCaseReg.exec(testName))
         console.log('!Case_id!: ', case_id)
         console.log('!Status_id!: ', status_id)
         const testRailResult = {
