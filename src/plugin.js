@@ -109,7 +109,7 @@ async function registerPlugin(on, config, skipPlugin = false) {
         ...defaultStatus,
         ...statusOverride,
       }
-      const testRailCaseReg = /C(\d+)\s/
+      const testRailCaseReg = /C(\d+)\s/g
       // only look at the test name, not at the suite titles
       const testName = result.title[result.title.length - 1]
       console.log('!testName!: ', testName)
