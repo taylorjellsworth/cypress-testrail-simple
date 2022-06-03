@@ -112,9 +112,12 @@ async function registerPlugin(on, config, skipPlugin = false) {
       const testRailCaseReg = /C(\d+)\s/
       // only look at the test name, not at the suite titles
       const testName = result.title[result.title.length - 1]
+      console.log('!testName!: ', testName)
       if (testRailCaseReg.test(testName)) {
         const case_id = parseInt(testRailCaseReg.exec(testName)[1])
         const status_id = status[result.state] || defaultStatus.failed
+        console.log('!Case_id!: ', case_id)
+        console.log('!Status_id!: ', status_id)
         const testRailResult = {
           case_id,
           status_id,
