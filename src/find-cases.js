@@ -25,6 +25,7 @@ function findCasesInSpec(spec, readSpec = fs.readFileSync, tagged) {
         return
       }
       let idArray = []
+      console.log(matches)
       for (const id of matches) {
         // Slice to remove the leading C in the test case ID
         idArray.push(Number(id.slice(1)))

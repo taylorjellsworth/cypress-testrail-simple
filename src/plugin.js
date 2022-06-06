@@ -116,6 +116,7 @@ async function registerPlugin(on, config, skipPlugin = false) {
       if (testRailCaseReg.test(testName)) {
         
         const matches = testName.match(testRailCaseReg)
+        console.log(matches)
         if (!matches) {
           debug('No Test ID in test title')
         }
