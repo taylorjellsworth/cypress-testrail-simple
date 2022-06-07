@@ -90,16 +90,19 @@ async function registerPlugin(on, config, skipPlugin = false) {
        *  | -------------- | --------------- | ------------------ |
        *  | created        | Untested        | 3                  |
        *  | Passed         | Passed          | 1                  |
-       *  | Pending        | Blocked         | 2                  |
+       *  | Pending        | Skipped         | 8                  |
        *  | Skipped        | Retest          | 4                  |
        *  | Failed         | Failed          | 5                  |
-       *
        *  Each test starts as "Untested" in TestRail.
        *  @see https://glebbahmutov.com/blog/cypress-test-statuses/
        */
+
+      /** changed mapping so 'pending' reports as 'skipped' in TestRail
+       * @see https://github.com/cypress-io/cypress/issues/3092
+       */
       const defaultStatus = {
         passed: 1,
-        pending: 2,
+        pending: 8,
         skipped: 4,
         failed: 5,
       }

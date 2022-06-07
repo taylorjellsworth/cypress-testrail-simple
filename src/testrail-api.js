@@ -10,6 +10,7 @@ const TestRailStatus = {
   Untested: 3,
   Retest: 4,
   Failed: 5,
+  Skipped: 8,
 }
 
 const TestRailStatusName = [
@@ -19,11 +20,13 @@ const TestRailStatusName = [
   'Untested',
   'Retest',
   'Failed',
+  null,
+  null,
+  'Skipped',
 ]
 
 async function getTestRun(runId, testRailInfo) {
   const closeRunUrl = `${testRailInfo.host}/index.php?/api/v2/get_run/${runId}`
-  const getStatusUrl = `${testRailInfo.host}/index.php?/api/v2/get_statuses`
 
   debug('get run url: %s', closeRunUrl)
   const authorization = getAuthorization(testRailInfo)
@@ -36,16 +39,6 @@ async function getTestRun(runId, testRailInfo) {
       authorization,
     },
   }).json()
-
-  const getStatus = await got(getStatusUrl, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      authorization,
-    },
-  }).json()
-
-  console.log('GetStatus: ', getStatus)
 
   debug('get test run %d response', runId)
   debug(json)
