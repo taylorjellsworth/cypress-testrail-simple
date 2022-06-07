@@ -112,27 +112,25 @@ async function registerPlugin(on, config, skipPlugin = false) {
       const testRailCaseReg = /C(\d+)\:?/g
       // only look at the test name, not at the suite titles
       const testName = result.title[result.title.length - 1]
-      console.log('!testName!: ', testName)
-      if (testRailCaseReg.test(testName)) {
-        
+
+      if (testRailCaseReg.test(testName)) { 
         const matches = testName.match(testRailCaseReg)
-        console.log(matches)
+        
         if (!matches) {
           debug('No Test ID in test title')
         }
-          for (const id of matches) {
-            // Slice to remove the leading C in the test case ID
-            const case_id = parseInt(id.slice(1))
 
-          // const case_id = parseInt(testRailCaseReg.exec(testName)[1])
-            const status_id = status[result.state] || defaultStatus.failed
-            // console.log('!Case_id array!: ', testRailCaseReg.exec(testName))
-            console.log('!Case_id!: ', case_id)
-            console.log('!Status_id!: ', status_id)
-            const testRailResult = {
-              case_id,
-              status_id,
-            }
+        for (const id of matches) {
+          // Slice to remove the leading C in the test case ID
+          const case_id = parseInt(id.slice(1))
+
+          const status_id = status[result.state] || defaultStatus.failed
+          console.log('!Case_id!: ', case_id)
+          console.log('!Status_id!: ', status_id)
+          const testRailResult = {
+            case_id,
+            status_id,
+          }
 
           if (caseIds.length && !caseIds.includes(case_id)) {
             debug('case %d is not in test run %d', case_id, runId)
