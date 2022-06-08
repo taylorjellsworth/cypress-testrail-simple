@@ -141,8 +141,8 @@ async function getTestSuite(suiteId, testRailInfo, isSmoke = false) {
   debug('get suite url: %s', `${testRailApi}${getSuiteUrl}`)
   const authorization = getAuthorization(testRailInfo)
 
-  const json = {}
-  const allCaseIds = []
+  let json = {}
+  let allCaseIds = []
 
   async function getTestSuitePart(url) {
     // @ts-ignore
