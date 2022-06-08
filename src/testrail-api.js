@@ -162,7 +162,8 @@ async function getTestSuite(suiteId, testRailInfo, isSmoke = false) {
         debug(testCase)
         return testCase.id
       }
-    })
+    }).filter(Number)
+    
     allCaseIds.push(...caseIds)
 
     if (json._links && json._links.next) {

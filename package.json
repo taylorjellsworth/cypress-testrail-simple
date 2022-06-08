@@ -1,6 +1,6 @@
 {
   "name": "@taylorjellsworth/cypress-testrail-simple",
-  "version": "0.0.12-development",
+  "version": "0.0.13-development",
   "description": "Simple upload of Cypress test results to TestRail",
   "main": "index.js",
   "files": [
