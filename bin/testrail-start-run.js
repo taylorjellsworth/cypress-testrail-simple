@@ -25,6 +25,7 @@ const args = arg(
     '--tagged': String,
     // do not open the test run, just find everything
     '--dry': Boolean,
+    '--smoke': Boolean,
     // aliases
     '-s': '--spec',
     '-n': '--name',
@@ -85,8 +86,17 @@ async function startRun({ testRailInfo, name, description, caseIds }) {
     }
     json.suite_id = Number(suiteId)
     debug('suite id %d', json.suite_id)
-    // simply print all test cases
-    await getTestSuite(suiteId, testRailInfo)
+
+    let isSmoke = args['--smoke']
+    if (isSmoke) {
+      debug('Smoke Suite')
+      const testCaseIds = await getTestSuite(suiteId, testRailInfo, isSmoke)
+      json.include_all = false;
+      json.case_ids = testCaseIds;
+    } else {
+      // simply print all test cases
+      await getTestSuite(suiteId, testRailInfo)
+    }
   }
 
   // @ts-ignore

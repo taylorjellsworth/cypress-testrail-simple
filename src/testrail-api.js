@@ -135,23 +135,49 @@ async function closeTestRun(runId, testRailInfo) {
   return json
 }
 
-async function getTestSuite(suiteId, testRailInfo) {
-  const getSuiteUrl = `${testRailInfo.host}/index.php?/api/v2/get_cases/${testRailInfo.projectId}&suite_id=${suiteId}`
-  debug('get suite url: %s', getSuiteUrl)
+async function getTestSuite(suiteId, testRailInfo, isSmoke = false) {
+  const testRailApi = `${testRailInfo.host}/index.php?`
+  const getSuiteUrl = `/api/v2/get_cases/${testRailInfo.projectId}&suite_id=${suiteId}`
+  debug('get suite url: %s', `${testRailApi}${getSuiteUrl}`)
   const authorization = getAuthorization(testRailInfo)
 
-  // @ts-ignore
-  const json = await got(getSuiteUrl, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      authorization,
-    },
-  }).json()
+  const json = {}
+  const allCaseIds = []
 
-  debug('get test suite %d response', suiteId)
-  debug(json)
-  return json
+  async function getTestSuitePart(url) {
+    // @ts-ignore
+    json = await got(testRailApi + url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization,
+      },
+    }).json()
+
+    debug('get test suite %d response', suiteId)
+    debug(json)
+    const { cases } = json
+    const caseIds = cases.map((testCase) => {
+      if (testCase.custom_is_smoke == 1) {
+        debug(testCase)
+        return testCase.id
+      }
+    })
+    allCaseIds.push(...caseIds)
+
+    if (json._links && json._links.next) {
+      await (getTestSuitePart(json._links.next))
+    }
+  }
+  
+  await getTestSuitePart(getSuiteUrl)
+  debug(allCaseIds)
+
+  if (isSmoke) {
+    return allCaseIds
+  } else {
+    return json
+  } 
 }
 
 module.exports = {
